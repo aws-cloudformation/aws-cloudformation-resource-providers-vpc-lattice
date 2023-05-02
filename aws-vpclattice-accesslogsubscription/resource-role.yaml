@@ -1,0 +1,70 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  This CloudFormation template creates a role assumed by CloudFormation
+  during CRUDL operations to mutate resources on behalf of the customer.
+
+Resources:
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      MaxSessionDuration: 8400
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: resources.cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount:
+                  Ref: AWS::AccountId
+              StringLike:
+                aws:SourceArn:
+                  Fn::Sub: arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:type/resource/AWS-VpcLattice-AccessLogSubscription/*
+      Path: "/"
+      Policies:
+        - PolicyName: ResourceTypePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                - "firehose:CreateDeliveryStream"
+                - "firehose:DeleteDeliveryStream"
+                - "firehose:DescribeDeliveryStream"
+                - "firehose:TagDeliveryStream"
+                - "firehose:UntagDeliveryStream"
+                - "firehose:UpdateDestination"
+                - "iam:CreateServiceLinkedRole"
+                - "iam:DeleteServiceLinkedRole"
+                - "iam:GetServiceLinkedRoleDeletionStatus"
+                - "logs:CreateLogDelivery"
+                - "logs:CreateLogStream"
+                - "logs:DeleteDestination"
+                - "logs:DeleteLogDelivery"
+                - "logs:DeleteLogStream"
+                - "logs:DescribeLogGroups"
+                - "logs:DescribeResourcePolicies"
+                - "logs:GetLogDelivery"
+                - "logs:PutDestination"
+                - "logs:PutDestinationPolicy"
+                - "logs:PutResourcePolicy"
+                - "logs:UpdateLogDelivery"
+                - "s3:GetBucketLogging"
+                - "s3:GetBucketPolicy"
+                - "s3:PutBucketLogging"
+                - "s3:PutBucketPolicy"
+                - "vpc-lattice:CreateAccessLogSubscription"
+                - "vpc-lattice:DeleteAccessLogSubscription"
+                - "vpc-lattice:GetAccessLogSubscription"
+                - "vpc-lattice:ListAccessLogSubscriptions"
+                - "vpc-lattice:ListTagsForResource"
+                - "vpc-lattice:TagResource"
+                - "vpc-lattice:UntagResource"
+                - "vpc-lattice:UpdateAccessLogSubscription"
+                Resource: "*"
+Outputs:
+  ExecutionRoleArn:
+    Value:
+      Fn::GetAtt: ExecutionRole.Arn

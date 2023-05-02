@@ -1,0 +1,29 @@
+{
+    "artifact_type": "RESOURCE",
+    "typeName": "AWS::VpcLattice::ResourcePolicy",
+    "language": "java",
+    "runtime": "java11",
+    "entrypoint": "software.amazon.vpclattice.resourcepolicy.HandlerWrapper::handleRequest",
+    "testEntrypoint": "software.amazon.vpclattice.resourcepolicy.HandlerWrapper::testEntrypoint",
+    "settings": {
+        "version": false,
+        "subparser_name": null,
+        "verbose": 0,
+        "force": false,
+        "type_name": null,
+        "artifact_type": null,
+        "endpoint_url": null,
+        "region": null,
+        "target_schemas": [],
+        "namespace": [
+            "software",
+            "amazon",
+            "vpclattice",
+            "resourcepolicy"
+        ],
+        "codegen_template_path": "default",
+        "protocolVersion": "2.0.0"
+    },
+    "logProcessorEnabled": "true",
+    "executableEntrypoint": "software.amazon.vpclattice.resourcepolicy.HandlerWrapperExecutable"
+}
