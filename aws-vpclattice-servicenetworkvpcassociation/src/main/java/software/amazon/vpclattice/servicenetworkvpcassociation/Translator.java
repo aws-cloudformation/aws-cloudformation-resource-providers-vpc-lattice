@@ -64,16 +64,14 @@ public class Translator {
     public static ListServiceNetworkVpcAssociationsRequest createListServiceNetworkVpcAssociationsRequest(
             @Nonnull final ResourceModel model,
             @Nullable String nextToken) {
-//        if (model.getServiceNetworkIdentifier() == null && model.getVpcIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing ServiceNetworkIdentifier and VpcIdentifier");
-//        }
+        if (model.getServiceNetworkIdentifier() == null && model.getVpcIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing ServiceNetworkIdentifier and VpcIdentifier");
+        }
 
         return ListServiceNetworkVpcAssociationsRequest.builder()
                 .nextToken(nextToken)
-                .serviceNetworkIdentifier(Optional.ofNullable(model.getServiceNetworkIdentifier()).orElse(Optional.ofNullable(model.getServiceNetworkArn()).orElse(model.getServiceNetworkId())))
-                .vpcIdentifier(Optional.ofNullable(model.getVpcIdentifier()).orElse(model.getVpcId()))
-//                .serviceNetworkIdentifier(model.getServiceNetworkIdentifier())
-//                .vpcIdentifier(model.getVpcIdentifier())
+                .serviceNetworkIdentifier(model.getServiceNetworkIdentifier())
+                .vpcIdentifier(model.getVpcIdentifier())
                 .build();
     }
 

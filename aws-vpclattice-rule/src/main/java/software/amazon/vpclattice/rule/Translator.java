@@ -125,27 +125,17 @@ public class Translator {
     public static ListRulesRequest createListRulesRequest(
             @Nonnull final ResourceModel model,
             @Nullable final String nextToken) {
-//        if (model.getServiceIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing ServiceIdentifier");
-//        }
+        if (model.getServiceIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing ServiceIdentifier");
+        }
 
-//        if (model.getListenerIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing ListenerIdentifier");
-//        }
-
-        final var serviceIdentifier = Optional.ofNullable(model.getArn())
-                .map(ArnHelper::getServiceIdFromRuleArn)
-                .orElse(model.getServiceIdentifier());
-
-        final var listenerIdentifier = Optional.ofNullable(model.getArn())
-                .map(ArnHelper::getListenerIdFromRuleArn)
-                .orElse(model.getListenerIdentifier());
+        if (model.getListenerIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing ListenerIdentifier");
+        }
 
         return ListRulesRequest.builder()
-                .serviceIdentifier(serviceIdentifier)
-                .listenerIdentifier(listenerIdentifier)
-//                .serviceIdentifier(model.getServiceIdentifier())
-//                .listenerIdentifier(model.getListenerIdentifier())
+                .serviceIdentifier(model.getServiceIdentifier())
+                .listenerIdentifier(model.getListenerIdentifier())
                 .nextToken(nextToken)
                 .build();
     }

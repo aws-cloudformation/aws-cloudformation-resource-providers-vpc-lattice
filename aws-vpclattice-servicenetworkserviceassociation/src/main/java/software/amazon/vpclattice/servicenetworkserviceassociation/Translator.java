@@ -82,16 +82,14 @@ public final class Translator {
     public static ListServiceNetworkServiceAssociationsRequest createListServiceNetworkServiceAssociationsRequest(
             @Nonnull ResourceModel model,
             @Nullable String nextToken) {
-//        if (model.getServiceNetworkIdentifier() == null && model.getServiceIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing ServiceNetworkIdentifier and ServiceIdentifier");
-//        }
+        if (model.getServiceNetworkIdentifier() == null && model.getServiceIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing ServiceNetworkIdentifier and ServiceIdentifier");
+        }
 
         return ListServiceNetworkServiceAssociationsRequest.builder()
                 .nextToken(nextToken)
-                .serviceNetworkIdentifier(Optional.ofNullable(model.getServiceNetworkIdentifier()).orElse(Optional.ofNullable(model.getServiceNetworkArn()).orElse(model.getServiceNetworkId())))
-                .serviceIdentifier(Optional.ofNullable(model.getServiceIdentifier()).orElse(Optional.ofNullable(model.getServiceArn()).orElse(model.getServiceId())))
-//                .serviceNetworkIdentifier(model.getServiceNetworkIdentifier())
-//                .serviceIdentifier(model.getServiceIdentifier())
+                .serviceNetworkIdentifier(model.getServiceNetworkIdentifier())
+                .serviceIdentifier(model.getServiceIdentifier())
                 .build();
     }
 

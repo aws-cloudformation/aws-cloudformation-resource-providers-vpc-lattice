@@ -111,20 +111,12 @@ public class Translator {
     public static ListListenersRequest createListListenersRequest(
             @Nonnull final ResourceModel model,
             @Nullable final String nextToken) {
-//        if (model.getServiceIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing ServiceIdentifier");
-//        }
-
-        final var serviceIdentifier = Optional
-                .ofNullable(model.getArn())
-                .map(ArnHelper::getServiceIdFromListenerArn)
-                .orElse(Optional.ofNullable(model.getServiceIdentifier())
-                        .orElse(Optional.ofNullable(model.getServiceArn())
-                                .orElse(model.getServiceId())));
+        if (model.getServiceIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing ServiceIdentifier");
+        }
 
         return ListListenersRequest.builder()
-                .serviceIdentifier(serviceIdentifier)
-//                .serviceIdentifier(model.getServiceIdentifier())
+                .serviceIdentifier(model.getServiceIdentifier())
                 .nextToken(nextToken)
                 .build();
     }

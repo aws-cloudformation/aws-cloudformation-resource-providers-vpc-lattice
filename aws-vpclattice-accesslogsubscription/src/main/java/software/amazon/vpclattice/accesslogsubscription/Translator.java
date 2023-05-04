@@ -79,12 +79,12 @@ public class Translator {
     }
 
     static ListAccessLogSubscriptionsRequest createListAccessLogSubscriptionsRequest(final ResourceModel model, final String nextToken) {
-//        if (model.getResourceIdentifier() == null) {
-//            throw new CfnInvalidRequestException("Missing resourceIdentifier");
-//        }
+        if (model.getResourceIdentifier() == null) {
+            throw new CfnInvalidRequestException("Missing resourceIdentifier");
+        }
 
         return ListAccessLogSubscriptionsRequest.builder()
-                .resourceIdentifier(Optional.ofNullable(model.getResourceId()).orElse(Optional.ofNullable(model.getResourceArn()).orElse(model.getResourceIdentifier())))
+                .resourceIdentifier(model.getResourceIdentifier())
                 .nextToken(nextToken)
                 .build();
     }
