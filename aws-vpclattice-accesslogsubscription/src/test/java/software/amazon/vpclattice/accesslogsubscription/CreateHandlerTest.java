@@ -47,16 +47,21 @@ public class CreateHandlerTest extends BaseTest {
         final var request = getRequest();
 
         mockSdkReturn(createAccessLogSubscription());
+
+        final var response1 =
+                handler.handleRequest(proxy, request, null, logger);
+
         mockSdkReturn(getAccessLogSubscription());
         TagsTestUtils.mockSdkReturn(proxyClient, TagsTestUtils.LIST_TAGS_RESPONSE);
 
-        final var response = handler.handleRequest(proxy, request, null, logger);
+        final var response2 =
+                handler.handleRequest(proxy, request, response1.getCallbackContext(), logger);
 
-        AssertionsForClassTypes.assertThat(response).isNotNull();
-        AssertionsForClassTypes.assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+        AssertionsForClassTypes.assertThat(response2).isNotNull();
+        AssertionsForClassTypes.assertThat(response2.getStatus()).isEqualTo(OperationStatus.SUCCESS);
 
-        AssertionsForClassTypes.assertThat(response.getResourceModel()).isNotNull();
-        AssertionsForClassTypes.assertThat(response.getResourceModel().getArn()).isEqualTo(ALS_ARN);
+        AssertionsForClassTypes.assertThat(response2.getResourceModel()).isNotNull();
+        AssertionsForClassTypes.assertThat(response2.getResourceModel().getArn()).isEqualTo(ALS_ARN);
     }
 
     @ParameterizedTest
@@ -74,6 +79,30 @@ public class CreateHandlerTest extends BaseTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo(OperationStatus.FAILED);
         assertThat(response.getErrorCode()).isEqualTo(cloudFormationErrorCode);
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideExceptions")
+    public void handleRequest_getCallThrowsException_throwEquivalentHandlerErrorCode(
+            @Nonnull final Class<? extends Throwable> exception,
+            @Nonnull final HandlerErrorCode cloudFormationErrorCode) {
+        final var request = getRequest();
+
+        mockSdkReturn(createAccessLogSubscription());
+
+        final var response1 =
+                handler.handleRequest(proxy, request, null, logger);
+
+        mockSdkGetThrow(exception);
+
+        final var response2 =
+                handler.handleRequest(proxy, request, response1.getCallbackContext(), logger);
+
+        assertThat(response2).isNotNull();
+        assertThat(response2.getStatus()).isEqualTo(OperationStatus.FAILED);
+        assertThat(response2.getErrorCode()).isEqualTo(cloudFormationErrorCode);
+        assertThat(response2.getResourceModel()).isNotNull();
+        assertThat(response2.getResourceModel().getArn()).isEqualTo(ALS_ARN);
     }
 
     private ResourceModel getModel() {
