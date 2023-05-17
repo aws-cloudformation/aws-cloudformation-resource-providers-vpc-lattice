@@ -28,6 +28,10 @@ public class CreateHandler extends BaseHandlerStd {
             @Nonnull final AmazonWebServicesClientProxy proxy,
             @Nonnull final ResourceHandlerRequest<ResourceModel> request,
             @Nonnull final ProxyClient<VpcLatticeClient> proxyClient) {
+        if (progress.getCallbackContext().hasCalledCreate) {
+            return progress;
+        }
+
         return proxy.initiate(
                         "AWS::VpcLattice::AccessLogSubscription::CreateAccessLogSubscription",
                         proxyClient,
@@ -43,7 +47,9 @@ public class CreateHandler extends BaseHandlerStd {
 
                     model.setArn(createAccessLogSubscriptionResponse.arn());
 
-                    return ProgressEvent.defaultInProgressHandler(progress.getCallbackContext(), 0, model);
+                    progress.getCallbackContext().setHasCalledCreate(true);
+
+                    return ProgressEvent.defaultInProgressHandler(progress.getCallbackContext(), 2, model);
                 });
     }
 }

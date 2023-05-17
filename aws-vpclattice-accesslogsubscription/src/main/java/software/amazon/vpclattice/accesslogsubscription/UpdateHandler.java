@@ -32,7 +32,7 @@ public class UpdateHandler extends BaseHandlerStd {
             @Nonnull final AmazonWebServicesClientProxy proxy,
             @Nonnull final ResourceHandlerRequest<ResourceModel> request,
             @Nonnull final ProxyClient<software.amazon.awssdk.services.vpclattice.VpcLatticeClient> proxyClient) {
-        if (!this.shouldUpdateAccessLogSubscription(request.getPreviousResourceState(), request.getDesiredResourceState())) {
+        if (!this.shouldUpdateAccessLogSubscription(request.getPreviousResourceState(), request.getDesiredResourceState()) || progress.getCallbackContext().hasCalledUpdate) {
             return progress;
         }
 
@@ -46,7 +46,13 @@ public class UpdateHandler extends BaseHandlerStd {
                 .makeServiceCall((updateAccessLogSubscriptionRequest, client) ->
                         client.injectCredentialsAndInvokeV2(updateAccessLogSubscriptionRequest, client.client()::updateAccessLogSubscription))
                 .handleError(ExceptionHandler::handleError)
-                .progress();
+                .done((updateAccessLogSubscriptionResponse) -> {
+                    final var model = progress.getResourceModel();
+
+                    progress.getCallbackContext().setHasCalledUpdate(true);
+
+                    return ProgressEvent.defaultInProgressHandler(progress.getCallbackContext(), 2, model);
+                });
     }
 
     private ProgressEvent<ResourceModel, CallbackContext> updateTags(

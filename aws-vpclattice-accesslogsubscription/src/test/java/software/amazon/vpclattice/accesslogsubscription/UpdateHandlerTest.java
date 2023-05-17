@@ -48,19 +48,22 @@ public class UpdateHandlerTest extends BaseTest {
                 .destinationArn(DESTINATION_ARN + 1)
                 .build());
 
+        final var response1 =
+                handler.handleRequest(proxy, request, null, logger);
+
         mockSdkReturn(getAccessLogSubscription());
         TagsTestUtils.mockSdkReturn(proxyClient, TagsTestUtils.LIST_TAGS_RESPONSE);
         TagsTestUtils.mockSdkReturn(proxyClient, TagsTestUtils.TAG_RESOURCE_RESPONSE);
         TagsTestUtils.mockSdkReturn(proxyClient, TagsTestUtils.UNTAG_RESOURCE_RESPONSE);
 
-        final var response =
-                handler.handleRequest(proxy, request, null, logger);
+        final var response2 =
+                handler.handleRequest(proxy, request, response1.getCallbackContext(), logger);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getStatus()).isEqualTo(OperationStatus.SUCCESS);
+        assertThat(response2).isNotNull();
+        assertThat(response2.getStatus()).isEqualTo(OperationStatus.SUCCESS);
 
-        assertThat(response.getResourceModel()).isNotNull();
-        assertThat(response.getResourceModel().getArn()).isEqualTo(ALS_ARN);
+        assertThat(response2.getResourceModel()).isNotNull();
+        assertThat(response2.getResourceModel().getArn()).isEqualTo(ALS_ARN);
     }
 
     @Test
