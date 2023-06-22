@@ -136,7 +136,21 @@
         "logs:UpdateLogDelivery",
         "firehose:UpdateDestination",
         "vpc-lattice:TagResource",
-        "vpc-lattice:UntagResource"
+        "logs:CreateLogDelivery",
+        "logs:CreateLogStream",
+        "logs:PutDestination",
+        "logs:PutDestinationPolicy",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups",
+        "logs:GetLogDelivery",
+        "s3:PutBucketLogging",
+        "s3:GetBucketLogging",
+        "s3:GetBucketPolicy",
+        "s3:PutBucketPolicy",
+        "firehose:TagDeliveryStream",
+        "firehose:CreateDeliveryStream",
+        "firehose:DescribeDeliveryStream"
       ]
     },
     "delete": {

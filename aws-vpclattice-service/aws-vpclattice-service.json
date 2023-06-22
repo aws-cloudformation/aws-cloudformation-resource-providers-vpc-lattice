@@ -148,7 +148,9 @@
       "permissions": [
         "vpc-lattice:UpdateService",
         "vpc-lattice:TagResource",
-        "vpc-lattice:UntagResource"
+        "vpc-lattice:UntagResource",
+        "vpc-lattice:GetService",
+        "vpc-lattice:ListTagsForResource"
       ]
     },
     "delete": {
