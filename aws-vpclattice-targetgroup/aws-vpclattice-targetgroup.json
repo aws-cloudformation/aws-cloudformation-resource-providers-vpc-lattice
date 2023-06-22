@@ -310,6 +310,7 @@
         "vpc-lattice:DeleteTargetGroup",
         "vpc-lattice:GetTargetGroup",
         "vpc-lattice:DeregisterTargets",
+        "vpc-lattice:ListTargets",
         "lambda:RemovePermission"
       ]
     },

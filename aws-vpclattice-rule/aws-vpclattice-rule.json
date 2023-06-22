@@ -299,7 +299,8 @@
       "permissions": [
         "vpc-lattice:CreateRule",
         "vpc-lattice:GetRule",
-        "vpc-lattice:ListTagsForResource"
+        "vpc-lattice:ListTagsForResource",
+        "vpc-lattice:TagResource"
       ]
     },
     "read": {
