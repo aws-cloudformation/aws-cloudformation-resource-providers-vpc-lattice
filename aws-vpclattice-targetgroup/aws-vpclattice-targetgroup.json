@@ -276,7 +276,8 @@
         "ec2:DescribeAvailabilityZoneMappings",
         "lambda:Invoke",
         "lambda:AddPermission",
-        "elasticloadbalancing:DescribeLoadBalancers"
+        "elasticloadbalancing:DescribeLoadBalancers",
+        "iam:CreateServiceLinkedRole"
       ]
     },
     "read": {
