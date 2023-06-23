@@ -32,6 +32,7 @@ Resources:
                 Action:
                 - "acm:DescribeCertificate"
                 - "acm:ListCertificates"
+                - "iam:CreateServiceLinkedRole"
                 - "vpc-lattice:CreateService"
                 - "vpc-lattice:DeleteService"
                 - "vpc-lattice:GetService"

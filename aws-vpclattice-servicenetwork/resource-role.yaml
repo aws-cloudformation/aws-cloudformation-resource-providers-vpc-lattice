@@ -30,6 +30,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
+                - "iam:CreateServiceLinkedRole"
                 - "vpc-lattice:CreateServiceNetwork"
                 - "vpc-lattice:DeleteServiceNetwork"
                 - "vpc-lattice:GetServiceNetwork"

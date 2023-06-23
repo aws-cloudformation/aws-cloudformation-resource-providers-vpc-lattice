@@ -135,7 +135,8 @@
         "vpc-lattice:ListTagsForResource",
         "vpc-lattice:TagResource",
         "acm:DescribeCertificate",
-        "acm:ListCertificates"
+        "acm:ListCertificates",
+        "iam:CreateServiceLinkedRole"
       ]
     },
     "read": {

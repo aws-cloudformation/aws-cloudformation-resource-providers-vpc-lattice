@@ -35,6 +35,7 @@ Resources:
                 - "ec2:DescribeSubnets"
                 - "ec2:DescribeVpcs"
                 - "elasticloadbalancing:DescribeLoadBalancers"
+                - "iam:CreateServiceLinkedRole"
                 - "lambda:AddPermission"
                 - "lambda:Invoke"
                 - "lambda:RemovePermission"
