@@ -13,8 +13,6 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public abstract class BaseHandlerStd extends BaseHandler<CallbackContext> {
-    protected Logger logger;
-
     protected abstract ProgressEvent<ResourceModel, CallbackContext> handleRequest(
             @Nonnull final AmazonWebServicesClientProxy proxy,
             @Nonnull final ResourceHandlerRequest<ResourceModel> request,
@@ -29,8 +27,6 @@ public abstract class BaseHandlerStd extends BaseHandler<CallbackContext> {
             @Nonnull final ResourceHandlerRequest<ResourceModel> request,
             @Nullable final CallbackContext callbackContext,
             @Nonnull final Logger logger) {
-        this.logger = logger;
-
         return this.handleRequest(
                 proxy,
                 request,
