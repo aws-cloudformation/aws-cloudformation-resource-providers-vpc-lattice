@@ -294,6 +294,7 @@
         "vpc-lattice:ListTargets",
         "vpc-lattice:RegisterTargets",
         "vpc-lattice:DeregisterTargets",
+        "ec2:DescribeVpcs",
         "ec2:DescribeInstances",
         "ec2:DescribeSubnets",
         "ec2:DescribeAvailabilityZoneMappings",
