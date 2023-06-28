@@ -126,16 +126,18 @@
     "read": {
       "permissions": [
         "vpc-lattice:GetAccessLogSubscription",
-        "vpc-lattice:ListTagsForResource"
+        "vpc-lattice:ListTagsForResource",
+        "logs:GetLogDelivery"
       ]
     },
     "update": {
       "permissions": [
         "vpc-lattice:GetAccessLogSubscription",
         "vpc-lattice:UpdateAccessLogSubscription",
+        "vpc-lattice:TagResource",
+        "vpc-lattice:UntagResource",
         "logs:UpdateLogDelivery",
         "firehose:UpdateDestination",
-        "vpc-lattice:TagResource",
         "logs:CreateLogDelivery",
         "logs:CreateLogStream",
         "logs:PutDestination",
